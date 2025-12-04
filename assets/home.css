@@ -1,0 +1,496 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+#map-wrapper {
+    position: relative;
+    max-width: 100%;
+    height: auto;
+    overflow: hidden;
+}
+
+#map-content {
+    position: relative;
+    transform-origin: top left;
+    width: 100%;
+}
+
+.weir {
+    position: absolute;
+    z-index: 1000;
+    width: 30px;
+    height: 20px;
+    pointer-events: none;
+    /* ✅ ป้องกันคลิกผิดพลาด */
+    border: 1px solid gray;
+    border-radius: 2px;
+}
+
+.weir-purple {
+    background-color: purple;
+}
+
+.weir-blue {
+    background-color: blue;
+}
+
+.weir-pink {
+    background-color: pink;
+}
+
+#map-content img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+/* องค์ประกอบซ้อนทั้งหมด */
+.map-container,
+.dam,
+.mark-icon,
+.arrow-image,
+.date-label,
+.marker,
+.station-box {
+    position: absolute;
+    font-family: 'K2D', sans-serif;
+}
+
+/* พื้นที่ overlay */
+#map-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* ป้ายวันที่ */
+.date-label {
+    top: 88px;
+    left: 670px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    z-index: 12;
+}
+
+/* ป้ายตัวเลข (ทั่วไป) */
+.count-label,
+.count-label-high {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 12px;
+    padding: 2px 5px;
+    border-radius: 4px;
+    z-index: 11;
+    font-weight: bold;
+    min-width: 30px;
+    min-height: 30px;
+}
+
+/* ป้ายตัวเลขแบบค่าสูง */
+.count-label-high {
+    color: white;
+
+}
+
+/* ปุ่มสร้าง GIF */
+#gif-output img {
+    margin-top: 15px;
+    max-width: 100%;
+    border: 2px solid #444;
+    border-radius: 10px;
+}
+
+.marker {
+    position: absolute;
+    /* ตำแหน่งสัมบูรณ์บน container */
+    font-weight: bold;
+}
+
+/* .marker ปรับเพิ่ม */
+.marker {
+    transform: translate(-50%, -50%);
+    /* เลื่อนตำแหน่งให้จุดศูนย์กลางอยู่ตรงกลาง marker */
+    font-size: 8px;
+    /* ขนาดตัวอักษร 20px */
+    text-shadow: 1px 1px white;
+    /* เงาขาวเล็กน้อย เพิ่มความชัด */
+    white-space: nowrap;
+    /* ข้อความไม่ขึ้นบรรทัดใหม่ */
+}
+
+/* กล่องแสดงฝน */
+.rainfall-box {
+    padding: 2px 5px;
+    border-radius: 3px;
+}
+
+.count-label,
+.count-label-high {
+    position: absolute;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 6px;
+    user-select: none;
+    white-space: nowrap;
+    text-align: center;
+    font-size: 13px;
+
+    transform: translate(-50%, -50%);
+    /* <<< ทำให้กล่องอยู่กึ่งกลางพิกัด */
+}
+
+
+.count-label {
+    color: black;
+}
+
+
+/* ดีไซน์ count-label-high (สีแดง) */
+
+
+/* สีแดง น้ำมาก */
+.marker.text-red {
+    color: #cc0606 !important;
+    /* แดงสด */
+}
+
+/* สีน้ำเงิน น้ำปกติ */
+.marker.text-blue {
+    color: rgb(2, 2, 112) !important;
+}
+
+/* ตารางแสดงฝน */
+.rainfall-box {
+    width: 45px;
+    /* ความกว้างกล่อง 70px */
+    height: 20px;
+    text-align: center;
+    /* ข้อความจัดกึ่งกลาง */
+    font-size: 14px;
+    /* ตัวอักษรใหญ่ 40px */
+    font-weight: bold;
+    /* ตัวหนา */
+    padding: 0px 2px;
+    /* ช่องว่างบนล่าง 2px ซ้ายขวา 5px */
+    border-radius: 3px;
+    /* มุมโค้งเล็กน้อย */
+    color: #000;
+    /* สีข้อความดำ */
+}
+
+/* พื้นหลังตามระดับฝน */
+
+.rainfall-low {
+    background-color: none;
+}
+
+.rainfall-SkyBlue {
+    background-color: #87CEEB;
+}
+
+.rainfall-CornflowerBlue {
+    background-color: #3399FF;
+}
+
+.rainfall-SteelBlue {
+    background-color: #0066FF;
+    color: white;
+}
+
+.rainfall-DodgerBlue {
+    background-color: #3C27F5;
+    color: white;
+}
+
+.rainfall-BlueRibbon {
+    background-color: #1C09C8;
+    color: #fff;
+}
+
+.rainfall-DarkBlue {
+    background-color: #16079C;
+    color: white ;
+}
+
+.rainfall-PineGreen {
+    background-color: #006633;
+    color: #fff;
+}
+
+.rainfall-LimeGreen {
+    background-color: #00CC33;
+}
+
+.rainfall-Green {
+    background-color: #00CC00;
+}
+
+.rainfall-LemonYellow {
+    background-color: #FFFF33;
+}
+
+.rainfall-OrangeYellow {
+    background-color: #FFCC33;
+}
+
+.rainfall-BurntOrange {
+    background-color: #CC3300;
+    color: white;
+}
+
+.rainfall-Tangerine {
+    background-color: #CC6633;
+    color: white;
+}
+
+.rainfall-Tan {
+    background-color: #CC9966;
+}
+
+.rainfall-RedOchre {
+    background-color: #CC3333;
+    color: #fff;
+}
+
+.rainfall-Scarlet {
+    background-color: #CC0000;
+    color: #fff;
+}
+
+.rainfall-DarkRed {
+    background-color: #990000;
+    color: #fff;
+}
+
+.rainfall-Maroon {
+    background-color: #660000;
+    color: #fff;
+}
+
+.rainfall-TyrianPurple {
+    background-color: #660066;
+    color: #fff;
+}
+
+.rainfall-RoyalPurple {
+    background-color: #6600FF;
+}
+
+.rainfall-Amethyst {
+    background-color: #663399;
+    color: #fff;
+}
+
+.rainfall-LavenderPurple {
+    background-color: #9966CC;
+}
+
+.rainfall-LightLavender {
+    background-color: #CC99FF;
+}
+
+.rainfall-Silver {
+    background-color: #CCCCCC;
+}
+
+
+/* กล่องฝน 72 ชั่วโมง */
+.rain-72h {
+    width: 50px;
+    /* ความกว้าง 50px */
+    font-weight: bold;
+    /* ตัวหนา */
+    text-align: center;
+    /* จัดกลาง */
+    font-size: 14px;
+    /* ตัวอักษรขนาด 40px */
+}
+
+/* ป้ายชื่อฝน */
+.rain-label {
+    width: 130px;
+    /* ความกว้าง 130px */
+    font-weight: bold;
+    /* ตัวหนา */
+    text-align: left;
+    /* จัดชิดซ้าย */
+    font-size: 15px;
+    /* ขนาดใหญ่ */
+}
+
+.tank-item {
+    position: absolute;
+    /* ตำแหน่งสัมบูรณ์ */
+    text-align: left;
+    /* เปลี่ยนจาก center เป็น left */
+    font-size: 20px;
+    z-index: 10;
+    width: 180px;
+    /* กำหนดความกว้างให้พอดี หรือปรับตามต้องการ */
+}
+
+/* ป้ายข้อความหลักในแทงก์ */
+.tank-item .label {
+    margin-top: 0;
+    font-size: 20px !important;
+    color: #333;
+    line-height: 1.2;
+    white-space: normal;
+    /* อนุญาตให้ขึ้นบรรทัดใหม่ได้ */
+    overflow-wrap: break-word;
+    /* ให้ข้อความยาวๆ หักบรรทัดได้ */
+}
+
+/* ป้ายข้อความเล็กในแทงก์ */
+.tank-item .small-label {
+    font-size: 30px;
+    color: #666;
+    line-height: 1.2;
+    white-space: normal;
+    /* อนุญาตให้ขึ้นบรรทัดใหม่ได้ */
+    overflow-wrap: break-word;
+    /* ให้ข้อความยาวๆ หักบรรทัดได้ */
+}
+
+/* ป้ายชื่อบนแทงก์ (ตำแหน่งบนสุด) */
+.tank-item .top-label {
+    position: absolute;
+    top: -12px;
+    left: 20%;
+    transform: translateX(-50%);
+    display: inline-block;
+    font-size: 9px;
+    line-height: 1;
+    padding: 0 4px;
+    margin: 0;
+    color: #000;
+    font-weight: bold;
+    background: skyblue;
+    border-radius: 1px;
+    white-space: nowrap;
+    z-index: 11;
+    box-sizing: content-box;
+}
+
+.station-box {
+  position: absolute;
+  color: #000;
+  padding: 5px;
+  font-size: 9px;
+  font-weight: bold;
+  font-family: monospace; /* ให้ตัวเลขกว้างเท่ากัน */
+  border-radius: 4px;
+}
+
+.data-row span {
+  display: inline-block;
+  width: 30px;           /* กำหนดความกว้างเท่ากันทุกช่อง */
+  text-align: left;      /* ชิดซ้าย */
+  white-space: nowrap;   /* ไม่ตัดบรรทัด */
+  text-overflow: ellipsis; /* ล้นแสดง ... */
+  font-family: monospace; /* ตัวเลขเรียงสวย (เลือกได้) */
+}
+
+.data-row {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px; /* กำหนดช่องว่างเบื้องต้นระหว่างทุกช่อง */
+}
+
+/* กำหนดความกว้างคงที่ + จัดข้อความชิดซ้าย */
+.col-cap,
+.col-current,
+.col-inuse {
+  width: 40px; 
+  text-align: left;
+  white-space: nowrap;
+}
+
+.col-current {
+  margin-left: 2px; /* ขยับขวาเพิ่มอีก 10px */
+  /* หรือใช้ transform: translateX(10px); */
+    color: white;
+
+}
+
+.col-inuse {
+  margin-left: 35px; /* ขยับขวาเพิ่มอีก 15px */
+  /* หรือใช้ transform: translateX(15px); */
+}
+
+
+
+
+
+.weir {
+    position: absolute;
+    z-index: 1000;
+    width: 30px;
+    height: 12px;
+    pointer-events: none;
+    /* ✅ ป้องกันคลิกผิดพลาด */
+    border: 1px solid gray;
+    border-radius: 2px;
+}
+
+.tall-weir {
+    position: absolute;
+    height: 20px;
+    width: 10px;
+    border: 1px solid gray;
+    border-radius: 2px;
+    z-index: 1000 !important;
+    pointer-events: none;
+}
+
+.small-weir {
+    position: absolute;
+    height: 10px;
+    width: 23px;
+    border: 1px solid gray;
+    border-radius: 2px;
+    z-index: 1000 !important;
+    pointer-events: none;
+}
+
+.weir-purple {
+    background-color: purple;
+}
+
+.weir-blue {
+    background-color: blue;
+}
+
+.weir-pink {
+    background-color: pink;
+}
+
+.dam {
+    position: absolute;
+    z-index: 1000;
+
+}
+
+.arrow-image {
+    z-index: 1;
+}
+
+.mark-icon {
+    position: absolute;
+    z-index: 1000;
+}
+
+.mark-dam {
+    color: #4d802f;
+}

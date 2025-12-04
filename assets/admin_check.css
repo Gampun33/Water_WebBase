@@ -1,0 +1,44 @@
+.btn-collapse {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+}
+
+/* ไอคอนหมุนเมื่อเปิด */
+.btn-collapse[aria-expanded="true"] .chevron {
+    transform: rotate(90deg);
+}
+
+.chevron {
+    transition: transform 0.3s ease;
+    font-size: 1.1rem;
+}
+
+.btn-collapse .chevron {
+    display: inline-block;
+    transition: transform 0.3s ease;
+    margin-right: 5px;
+}
+
+.custom-table th,
+.custom-table td {
+    vertical-align: middle;
+    text-align: center;
+}
+
+.custom-table th {
+  background-color: #136dc7 !important;
+  color: rgb(64, 110, 203);
+}
+
+.custom-table td {
+  background-color: #9fbbe8;
+}
+
+.custom-table tbody tr:hover td {
+  background-color: #64a9dd;
+}
+.table th{
+ color: white !important;
+}
